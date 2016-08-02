@@ -86,7 +86,7 @@ class Api(object):
         """ Gets listings for uid on api """
         assert(self._access_token and self.uid)
 
-        r = self._session.get(API_URL + "/v1/users/" + str(self.uid) + "/listings/")
+        r = self._session.get(API_URL + "/v1/users/" + str(self.uid) + "/listings/", params={"include_unavailable": True, "include_host_standards": True, "items_per_page": "50 HTTP/1.1"})
         r.raise_for_status()
 
         return r.json()
