@@ -29,7 +29,7 @@ class Api(object):
     """
 
     def __init__(self, username=None, password=None,
-                 uid=None, access_token=None, api_key=API_KEY):
+                 uid=None, access_token=None, no_auth=False, api_key=API_KEY):
         self._session = requests.Session()
 
         self._session.headers = {
@@ -39,6 +39,9 @@ class Api(object):
             "X-Airbnb-API-Key": api_key,
             "User-Agent": "Airbnb/4.7.0 iPhone/8.1.2"
         }
+
+        if no_auth:
+            return
 
         if uid and access_token:
             self.uid = uid
