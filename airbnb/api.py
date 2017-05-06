@@ -138,6 +138,23 @@ class Api(object):
 
         return r.json()
 
+    def get_calendar(self, listingId):
+        """ Returns calendar information for given listingId for next three months. """
+        now = datetime.datetime.now()
+        r = self._session.get(API_URL + "/v2/calendar_months",
+            params={
+            'currency': 'USD',
+            'locale': 'en',
+            'listing_id': listingId,
+            'month': now.month,
+            'year': now.year,
+            'count': 3,
+            '_format': 'with_conditions',
+            })
+        r.raise_for_status()
+
+        return r.json()
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
